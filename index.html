@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ақылды қоқыс жәшігі · Smart Trash Bin</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--bg:#f3f5f0;--ink:#18231f;--muted:#718079;--green:#a6ebc9;--line:#e1e8e2;--panel:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,sans-serif}
+.app{min-height:100vh;padding:26px clamp(18px,4vw,64px) 28px;max-width:1600px;margin:auto}
+header{height:54px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.04em}.mark{width:34px;height:34px;border-radius:12px;background:#163b2d;color:#a6ebc9;display:grid;place-items:center;font-size:17px}
+.header-right{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12px;font-weight:700}.live{display:flex;align-items:center;gap:7px}.dot{width:7px;height:7px;background:#48c98b;border-radius:50%;box-shadow:0 0 0 4px #dff8ec}
+main{display:grid;grid-template-columns:minmax(270px,340px) 1fr;gap:34px;margin-top:26px;min-height:calc(100vh - 134px)}
+aside{display:flex;flex-direction:column;padding:26px 0 12px}
+.eyebrow{text-transform:uppercase;font-size:10px;letter-spacing:.16em;font-weight:800;color:#6a8c7c;margin-bottom:14px}
+h1{font-size:clamp(32px,3.2vw,47px);line-height:1.06;letter-spacing:-.065em;margin:0 0 14px;font-weight:800}
+.subtitle{font-size:14px;line-height:1.7;color:var(--muted);margin:0 0 27px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:29px}.chip{border:1px solid #d9e5dc;background:#f9fbf8;padding:8px 11px;border-radius:99px;font-size:11px;font-weight:700;color:#426152}
+.tabs{display:flex;gap:6px;padding:5px;border:1px solid var(--line);background:#ebefeb;border-radius:12px;margin-bottom:17px}
+.tab{border:0;background:transparent;border-radius:8px;padding:10px 8px;flex:1;color:#6a776f;font:700 11px Manrope;cursor:pointer}.tab.active{background:white;color:#193f30;box-shadow:0 1px 5px #193f3012}
+.info-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:19px;min-height:180px}
+.info-card h2{font-size:13px;margin:0 0 11px;letter-spacing:-.02em}.info-card p{font-size:12px;line-height:1.75;color:var(--muted);margin:0}
+.parts{display:grid;gap:10px}.part{display:flex;gap:10px;align-items:center;color:#516158;font-size:11px;font-weight:700}.swatch{width:10px;height:10px;border-radius:4px;background:#57c693}
+.legend{margin-top:auto;padding-top:20px;display:flex;align-items:center;gap:8px;font-size:10px;color:#87928c}.legend span{border:1px solid var(--line);padding:7px 9px;border-radius:8px;background:#f8faf7}
+.viewer{position:relative;border-radius:27px;overflow:hidden;min-height:640px;background:radial-gradient(ellipse at 54% 44%,#e2eee5 0,#edf3ed 37%,#e9eee9 72%,#e4eae5 100%);border:1px solid #e1e9e2}
+.viewer:before{content:"";position:absolute;inset:0;opacity:.2;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:46px 46px;mask-image:linear-gradient(transparent,#000 35%,#000 85%,transparent)}
+canvas{position:absolute;inset:0;width:100%;height:100%;outline:none}
+.model-label{position:absolute;left:25px;top:23px;z-index:2}.model-label b{font-size:11px;letter-spacing:.02em}.model-label small{display:block;font-size:10px;color:#85928a;margin-top:4px}
+.controls{position:absolute;z-index:2;right:19px;top:18px;display:flex;gap:8px}
+.iconbtn{width:38px;height:38px;border-radius:12px;border:1px solid #fff;background:#ffffffc9;color:#34453b;font-size:15px;cursor:pointer;box-shadow:0 5px 18px #2038290c}.iconbtn:hover{background:#fff}
+.caption{position:absolute;left:23px;bottom:21px;z-index:2;color:#77847c;font-size:10px}.badge{position:absolute;right:21px;bottom:18px;z-index:2;background:#173d2f;color:#c2f5d8;border-radius:99px;padding:9px 12px;font-size:10px;font-weight:800}
+@media(max-width:900px){main{grid-template-columns:1fr;gap:20px}.viewer{min-height:65vh;grid-row:1}aside{padding-top:8px}.legend{margin-top:18px}.app{padding-top:14px}}
+@media(max-width:520px){.viewer{min-height:480px}.app{padding:14px}.subtitle{max-width:400px}.header-right .live{display:none}}
+</style>
+</head>
+<body><div class="app">
+<header><div class="brand"><span class="mark">♻</span><span>GREENLAB</span></div><div class="header-right"><span class="live"><i class="dot"></i>SMART ECO SYSTEM</span><span>·</span><span>CONCEPT 2025</span></div></header>
+<main>
+<aside><div class="eyebrow">ЭКО ТЕХНОЛОГИЯ · ЖОБА 01</div><h1>Ақылды<br>қоқыс жәшігі</h1><p class="subtitle">Қоқысты өзі сұрыптайтын, сенсорлы заманауи эко-жәшік. Таза кеңістікке арналған жаңа буын шешімі.</p>
+<div class="chips"><span class="chip">◉ Сенсорлы қақпақ</span><span class="chip">↗ 3 фракция</span><span class="chip">⌁ Эко материал</span></div>
+<div class="tabs"><button class="tab active" data-tab="about">Сипаттама</button><button class="tab" data-tab="parts">Бөлшектер</button><button class="tab" data-tab="logic">Жұмыс істеуі</button></div>
+<section class="info-card" id="card"></section>
+<div class="legend"><span>↔ Айналдыру</span><span>⊕ Жақындату</span><span>⤢ Панорама</span></div></aside>
+<section class="viewer" id="viewer"><div class="model-label"><b>SMART TRASH BIN</b><small>3D модель · интерактивті көрініс</small></div>
+<div class="controls"><button class="iconbtn" id="reset" title="Бастапқы көрініс">⟳</button><button class="iconbtn" id="spin" title="Автоматты айналдыру">◌</button></div>
+<div class="caption">Модельді тінтуірмен айналдырыңыз</div><div class="badge">♻ 100% ECO DESIGN</div></section>
+</main></div>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js';
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/controls/OrbitControls.js';
+import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js';
+const viewer=document.querySelector('#viewer'), scene=new THREE.Scene();scene.background=null;
+const camera=new THREE.PerspectiveCamera(36,1,.1,100);camera.position.set(4.1,-6.8,3.6);
+const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;viewer.prepend(renderer.domElement);
+const controls=new OrbitControls(camera,renderer.domElement);controls.target.set(0,1.2,0);controls.enableDamping=true;controls.minDistance=3;controls.maxDistance=10;controls.maxPolarAngle=Math.PI*.49;
+scene.add(new THREE.HemisphereLight(0xf4fff7,0x65766b,2.1));const key=new THREE.DirectionalLight(0xffffff,3.3);key.position.set(-3,-4,7);scene.add(key);const rim=new THREE.DirectionalLight(0xa7f2ca,2.2);rim.position.set(4,3,5);scene.add(rim);
+const floor=new THREE.Mesh(new THREE.CircleGeometry(3.3,64),new THREE.MeshBasicMaterial({color:0xe1ebe3,transparent:true,opacity:.72}));floor.rotation.x=Math.PI/2;floor.position.y=-.015;scene.add(floor);
+camera.position.set(4,3.9,7);controls.update();
+let model;new GLTFLoader().load('./model.glb',g=>{model=g.scene;scene.add(model)},undefined,e=>console.error('Model load error',e));
+function resize(){const r=viewer.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix()}new ResizeObserver(resize).observe(viewer);resize();
+let rotating=false;document.querySelector('#spin').onclick=()=>{rotating=!rotating;document.querySelector('#spin').style.background=rotating?'#c8f1d8':''};
+document.querySelector('#reset').onclick=()=>{camera.position.set(4,3.9,7);controls.target.set(0,1.2,0);controls.update()};
+function animate(){requestAnimationFrame(animate);if(rotating&&model)model.rotation.z+=.004;controls.update();renderer.render(scene,camera)}animate();
+const data={about:['Зияткерлік сұрыптау','Жақындық сенсоры қақпақты автоматты ашады. Кіріктірілген басқару панелі қалдықтарды үш ағынға бөліп, толу деңгейін көрсетеді. Жабық корпус иісті ұстап, күнделікті қолдануға ыңғайлы.'],parts:['Негізгі бөлшектер','<div class="parts"><div class="part"><i class="swatch"></i> Сенсорлы, герметикалық қақпақ</div><div class="part"><i class="swatch" style="background:#6d8277"></i> Қайта өңделген корпус</div><div class="part"><i class="swatch" style="background:#4c9bdb"></i> Пластикке арналған бөлік</div><div class="part"><i class="swatch" style="background:#d6bc6c"></i> Қағазға арналған бөлік</div><div class="part"><i class="swatch" style="background:#80ad5e"></i> Органикалық қалдық бөлігі</div></div>'],logic:['Қалай жұмыс істейді','1. Сенсор қолды анықтайды да, қақпақты ашады.<br>2. Алдыңғы сенсорлы панель қалдық түрін таңдауға көмектеседі.<br>3. Үш бөлек кіріс сұрыпталған қалдықтарды тиісті бөлімге бағыттайды.<br>4. Жарық индикаторы жәшіктің күйін көрсетеді.']};
+function setTab(name){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));const [h,p]=data[name];document.querySelector('#card').innerHTML='<h2>'+h+'</h2><p>'+p+'</p>'}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));setTab('about');
+</script></body></html>
